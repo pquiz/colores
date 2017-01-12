@@ -1,0 +1,171 @@
+<!--@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-color">
+    <template>
+        <style include="shared-styles">
+            :host
+            {
+                display: block;
+                height: 100%;
+                width: 100%;
+                padding: 3vh;
+                border-radius: 50%;
+                
+            }
+
+            #color
+            {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                border-radius: 50%;
+            }
+
+            paper-slider, h5
+            {
+                display: flex;
+                align-self: center;
+                vertical-align: middle;
+            }
+            .subcolor
+            { display: flex;
+                align-self: center;
+                vertical-align: middle;
+                width: 25%;
+    height: 5vh;
+            }
+            .subcolores
+            {
+                 display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width:100%;
+                max-width:100%
+                
+            }
+        </style>
+
+        <div id="color">
+            <h5>Tono</h5>
+            <paper-slider id="hue" pin value="{{current.ori.hue}}" max="360" editable on-change="_hueChanged"></paper-slider>
+            <h5>Saturacion</h5>
+            <paper-slider id="saturatiom" pin value="{{current.ori.saturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
+            <h5>Lumocidad</h5>
+            <paper-slider id="luz" pin value="{{current.ori.light}}" max="100" editable on-change="_luzChanged"></paper-slider>
+            <div class="subcolores">
+                <div class="subcolor" style$="[[current.l1.estilo]]"></div><div class="subcolor" style$="[[current.l2.estilo]]"></div>
+                <div class="subcolor" style$="[[current.ld1.estilo]]"></div><div class="subcolor" style$="[[current.ld2.estilo]]"></div>
+                <div class="subcolor" style$="[[current.d1.estilo]]"></div><div class="subcolor" style$="[[current.d2.estilo]]"></div>
+                <div class="subcolor" style$="[[current.dd1.estilo]]"></div><div class="subcolor" style$="[[current.dd2.estilo]]"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class MyColor extends Polymer.Element {
+            static get is() {
+                return 'my-color';
+            }
+            static get config() {
+                return {
+                    properties: {
+                        edit: {
+                            type: Boolean
+                        }, current: {
+                            type: Object,
+                            reflectToAttribute: true
+                        }, tag: {
+                            type: String,
+                            reflectToAttribute: false
+                        }
+                    }
+                }
+            }
+            /*   static get observedAttributes() {
+                   return [];
+               }*/
+            setcolor() {
+
+                this.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
+                this.current.l1= this.luminateHSL(this.saturateHSL(this.current.ori, .30), .6);
+                this.current.l1.estilo= "background:hsl(" + this.current.l1.hue + "," + this.current.l1.saturation + "%, " + this.current.l1.light + "%)";
+                this.current.l2= this.luminateHSL(this.saturateHSL(this.current.ori, .65), .3);
+                this.current.l2.estilo= "background:hsl(" + this.current.l2.hue + "," + this.current.l2.saturation + "%, " + this.current.l2.light + "%)";
+                this.current.ld1= this.luminateHSL(this.desaturateHSL(this.current.ori, .60), .4);
+                this.current.ld1.estilo= "background:hsl(" + this.current.ld1.hue + "," + this.current.ld1.saturation + "%, " + this.current.ld1.light + "%)";
+                this.current.ld2= this.luminateHSL(this.desaturateHSL(this.current.ori, .35), .85);
+                this.current.ld2.estilo= "background:hsl(" + this.current.ld2.hue + "," + this.current.ld2.saturation + "%, " + this.current.ld2.light + "%)";
+
+                this.current.d1= this.darkenHSL(this.saturateHSL(this.current.ori, .30), .6);
+                this.current.d1.estilo= "background:hsl(" + this.current.d1.hue + "," + this.current.d1.saturation + "%, " + this.current.d1.light + "%)";
+                this.current.d2= this.darkenHSL(this.saturateHSL(this.current.ori, .65), .3);
+                this.current.d2.estilo= "background:hsl(" + this.current.d2.hue + "," + this.current.d2.saturation + "%, " + this.current.d2.light + "%)";
+                this.current.dd1= this.darkenHSL(this.desaturateHSL(this.current.ori, .60), .6);
+                this.current.dd1.estilo= "background:hsl(" + this.current.dd1.hue + "," + this.current.dd1.saturation + "%, " + this.current.dd1.light + "%)";
+                this.current.dd2= this.darkenHSL(this.desaturateHSL(this.current.ori, .35), .3);
+                this.current.dd2.estilo= "background:hsl(" + this.current.dd2.hue + "," + this.current.dd2.saturation + "%, " + this.current.dd2.light + "%)";
+                this.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
+                this.set("current",this.current);
+           
+            }
+              _computeColorHSL( lhue, lsat, llig) {
+
+                return {
+                    ori: { hue: lhue, saturation:lsat , light: llig },
+                    l1: { hue: lhue, saturation: 100, light: 75 },
+                    l2: { hue: lhue, saturation: 100, light: 60 },
+                    ld1: { hue: lhue, saturation: 40, light: 70 },
+                    ld2: { hue: lhue, saturation: 65, light: 60 },
+                    d1: { hue: lhue, saturation: 100, light: 30 },
+                    d2: { hue: lhue, saturation: 100, light: 15 },
+                    dd1: { hue: lhue, saturation: 70, light: 30 },
+                    dd2: { hue: lhue, saturation: 40, light: 15 }
+                };
+
+            }
+            connectedCallback() {
+                super.connectedCallback();
+                this.setcolor();
+               
+            }
+            //static get observedAttributes() { return ["current"]; }
+            _hueChanged() {
+                this.setcolor();
+            }
+            _luzChanged() {
+                this.setcolor();
+            }
+            _saturacionChanged()
+            {
+                this.setcolor();
+            }
+            saturateHSL(inicio, dif) {
+
+                return { hue: inicio.hue, saturation: inicio.saturation + ((100 - inicio.saturation) * dif), light: inicio.light };
+            }
+            desaturateHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation - ((inicio.saturation) * dif), light: inicio.light };
+            }
+            luminateHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation, light: inicio.light + ((100 - inicio.light) * dif) };
+            }
+            darkenHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation, light: inicio.light - ((inicio.light) * dif) };
+            }
+
+        }
+        customElements.define(MyColor.is, MyColor);
+    </script>
+</dom-module>

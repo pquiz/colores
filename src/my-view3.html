@@ -1,0 +1,182 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html" />
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="my-color.html">
+<dom-module id="my-view3">
+    <template>
+        <style include="shared-styles">
+            :host
+            {
+                @apply(--host-container);
+            }
+            .contraste{
+background: var(--paper-checkbox-checked-color);
+    color: var(--accent-color);
+    padding: 22px;
+    font-size: xx-large;
+    width: 60%;
+    margin: auto;}
+            my-color
+            {
+                display: block;
+                width: 20%;
+                height: 45%;
+                border-radius: 50%;
+                margin: 4px;
+                webkit-box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
+                moz-box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
+                box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
+                /*700px 30%*/
+            }
+
+            .contenedor-colores
+            {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+        </style>
+        <section>
+            <h1 class="contraste">Cambio de colores</h1>
+            <h2>Color primario</h2>
+            <p> Tono del color {{primary.ori.hue}} saturacion {{primary.ori.saturation}} luminocidad {{primary.ori.light}}</p>
+            <div class="contenedor-colores">
+                <my-color id="pprimary" current={{primary}} tag="1"></my-color>
+                <my-color id="psecondary" current={{secondary}}  tag="2"></my-color>
+                <my-color id="pc1" current={{c1}}  tag="3"></my-color>
+                <my-color id="pc2" current={{c2}}  tag="4"></my-color>
+            </div>
+            <paper-button raised secondary>Fijar estilos</paper-button><paper-checkbox></paper-checkbox>
+        </section>
+    </template>
+    <script>
+        class MyView3 extends Polymer.Element {
+            static get is() {
+                return 'my-view3'; }
+            static get config() {
+                return {
+                    properties: {
+                        primary: {
+                            type: Object,
+                            reflectToAttribute: true,
+                            observer: '_setprimary'
+                        },
+                        secondary: {
+                            type: Object,
+                            reflectToAttribute: true,
+                            observer: '_setsecundary'
+                        },
+                        c1: {
+                            type: Object,
+                            reflectToAttribute: true,
+                            observer: '_setc1'
+                        },
+                        c2: {
+                            type: Object,
+                            reflectToAttribute: true,
+                            observer: '_setc2'
+                        }
+                    }
+                }
+            }
+            _setprimary() {
+                   let aux = 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)';
+              
+              //this.notifyPath("secondary");  
+                this.updateStyles({ '--paper-checkbox-checked-color': aux });
+                        this.updateStyles({     '--paper-progress-active-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+                    '--paper-radio-button-checked-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+                    
+                        '--paper-spinner-layer-1-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+    '--paper-spinner-layer-2-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+    '--paper-spinner-layer-3-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+    '--paper-spinner-layer-4-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+    '--paper-toggle-button-checked-button-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
+        '--paper-toggle-button-checked-ink-color': 'hsl(' + this.primary.ori.hue + ' ,' + this.primary.ori.saturation + '%,' + this.primary.ori.light + '%)'
+                });
+                        this.secondary = this._computeColorHSL(this.primary.ori, 180, 0, 100);
+                        this.set("secondary.ori", this.secondary.ori);
+                        this.$.psecondary.setcolor();
+                                this.c1 = this._computeColorHSL(this.primary.ori, 46, 0, 100);
+                        this.set("c1.ori", this.c1.ori);
+                        this.$.pc1.setcolor();
+                         this.c2 = this._computeColorHSL(this.primary.ori, 92         , 0, 100);
+                        this.set("c2.ori", this.c2.ori);
+                        this.$.pc2.setcolor();
+            }
+            _setsecundary(nsec) {
+                      //this.updateStyles({ '--my-dynamic-property': 'red' });
+ let aux = 'hsl(' + this.secondary.ori.hue + ' ,' + this.secondary.ori.saturation + '%,' + this.secondary.ori.light + '%)';
+         
+
+                 this.updateStyles({
+                    '--default-primary-color': aux});
+
+                this.updateStyles({
+                    '--paper-checkbox-checked-ink-color': aux});
+                this.updateStyles({'--paper-fab-background': aux});
+                this.updateStyles({'--paper-input-container-focus-color': aux});
+                this.updateStyles({ '--paper-progress-secondary-color': aux});
+                this.updateStyles({ '--app-tabs-selection-bar-color': aux });
+                this.updateStyles({'--app-tab-ink':  aux});
+               this.updateStyles({'--accent-color':aux});  
+                
+            }
+            _setc1() {
+               
+
+            }
+            _setc2() {
+                 //this.updateStyles({ '--my-dynamic-property': 'red' });
+
+            }
+            _computeColorHSL(inicio, lhue, lsat, llig) {
+
+                return {
+                    ori: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation:inicio.saturation , light: llig - inicio.light },
+                    l1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 90 },
+                    l2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 75 },
+                    ld1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 40, light: 90 },
+                    ld2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 65, light: 75 },
+                    d1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 30 },
+                    d2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 10 },
+                    dd1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 70, light: 30 },
+                    dd2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 40, light: 10 }
+                };
+
+            }
+            saturateHSL(inicio, dif) {
+
+                return { hue: inicio.hue, saturation: inicio.saturation + ((100 - inicio.saturation) * dif), light: inicio.light };
+            }
+            desaturateHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation - ((inicio.saturation) * dif), light: inicio.light };
+            }
+            darkenHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation, light: inicio.light + ((100 - inicio.light) * dif) };
+            }
+            luminateHSL(inicio, dif) {
+                return { hue: inicio.hue, saturation: inicio.saturation, light: inicio.light - ((inicio.light) * dif) };
+            }
+            connectedCallback() {
+                super.connectedCallback();
+
+
+            }
+        }
+        customElements.define(MyView3.is, MyView3);
+    </script>
+</dom-module>
