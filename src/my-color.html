@@ -9,6 +9,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
+  <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
+  <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+  <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<script src='../bower_components/Color/one-color.js'></script>
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-color">
@@ -20,17 +29,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 height: 100%;
                 width: 100%;
                 padding: 3vh;
-                border-radius: 50%;
+              
                 
             }
-
+paper-card{
+ background:none;
+}
             #color
             {
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                border-radius: 50%;
+               
             }
 
             paper-slider, h5
@@ -39,6 +50,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 align-self: center;
                 vertical-align: middle;
             }
+          .collapse-content {
+    padding: 15px;
+    border: 1px solid #dedede;
+  }
             .subcolor
             { display: flex;
                 align-self: center;
@@ -51,26 +66,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                width:100%;
+                width:90%;
                 max-width:100%
                 
             }
         </style>
-
-        <div id="color">
-            <h5>Tono</h5>
-            <paper-slider id="hue" pin value="{{current.ori.hue}}" max="360" editable on-change="_hueChanged"></paper-slider>
-            <h5>Saturacion</h5>
-            <paper-slider id="saturatiom" pin value="{{current.ori.saturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
-            <h5>Lumocidad</h5>
-            <paper-slider id="luz" pin value="{{current.ori.light}}" max="100" editable on-change="_luzChanged"></paper-slider>
-            <div class="subcolores">
-                <div class="subcolor" style$="[[current.l1.estilo]]"></div><div class="subcolor" style$="[[current.l2.estilo]]"></div>
+  
+<paper-card id="color" heading="{{tag}}">
+<div class="card-content subcolores"> <div class="subcolor" style$="[[current.l1.estilo]]"></div>
+<div class="subcolor" style$="[[current.l2.estilo]]"></div>
                 <div class="subcolor" style$="[[current.ld1.estilo]]"></div><div class="subcolor" style$="[[current.ld2.estilo]]"></div>
                 <div class="subcolor" style$="[[current.d1.estilo]]"></div><div class="subcolor" style$="[[current.d2.estilo]]"></div>
                 <div class="subcolor" style$="[[current.dd1.estilo]]"></div><div class="subcolor" style$="[[current.dd2.estilo]]"></div>
-            </div>
+                </div>
+        <div class="card-actions " style$="[[current.ori.estilo]]">
+            <h5 style$="[[current.l2.estilo2]]">Tono</h5>
+            <paper-slider id="hue" pin value="{{current.ori.hue}}" max="360" editable on-change="_hueChanged"></paper-slider>
+            <h5 style$="[[current.ld2.estilo2]]">Saturacion</h5>
+            <paper-slider id="saturatiom" pin value="{{current.ori.saturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
+            <h5 style$="[[current.d1.estilo2]]">Lumocidad</h5>
+            <paper-slider id="luz" pin value="{{current.ori.light}}" max="100" editable on-change="_luzChanged"></paper-slider>
+            <paper-icon-button id="ibutton"
+                icon="hardware:keyboard-arrow-up"
+                title="Otros formatos"
+                on-tap="_toggle"
+                style="float:right;">
+              </paper-icon-button>
+              <iron-collapse id="more_info" style="width:100%;">
+               <div class="collapse-content">
+        <div>  <h1>que pedo</h1></div>
+      </div>
+        
+              </iron-collapse>
+              <script>
+                
+              </script>
         </div>
+        </paper-card>
     </template>
 
     <script>
@@ -96,27 +128,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             /*   static get observedAttributes() {
                    return [];
                }*/
+                _toggle() {
+                  var moreInfo = this.$.more_info;
+                  var iconButton = Polymer.dom(event).localTarget;
+                  iconButton.icon = moreInfo.opened ? 'hardware:keyboard-arrow-up'
+                                                    : 'hardware:keyboard-arrow-down';
+                 this.$.more_info.toggle();
+                }
             setcolor() {
 
-                this.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
+                this.$.color.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
                 this.current.l1= this.luminateHSL(this.saturateHSL(this.current.ori, .30), .6);
                 this.current.l1.estilo= "background:hsl(" + this.current.l1.hue + "," + this.current.l1.saturation + "%, " + this.current.l1.light + "%)";
+                this.current.l1.estilo2= "color:hsl(" + this.current.l1.hue + "," + this.current.l1.saturation + "%, " + this.current.l1.light + "%)";
                 this.current.l2= this.luminateHSL(this.saturateHSL(this.current.ori, .65), .3);
                 this.current.l2.estilo= "background:hsl(" + this.current.l2.hue + "," + this.current.l2.saturation + "%, " + this.current.l2.light + "%)";
+                this.current.l2.estilo2= "color:hsl(" + this.current.l2.hue + "," + this.current.l2.saturation + "%, " + this.current.l2.light + "%)";
+
                 this.current.ld1= this.luminateHSL(this.desaturateHSL(this.current.ori, .60), .4);
                 this.current.ld1.estilo= "background:hsl(" + this.current.ld1.hue + "," + this.current.ld1.saturation + "%, " + this.current.ld1.light + "%)";
+                this.current.ld1.estilo2= "color:hsl(" + this.current.ld1.hue + "," + this.current.ld1.saturation + "%, " + this.current.ld1.light + "%)";
                 this.current.ld2= this.luminateHSL(this.desaturateHSL(this.current.ori, .35), .85);
                 this.current.ld2.estilo= "background:hsl(" + this.current.ld2.hue + "," + this.current.ld2.saturation + "%, " + this.current.ld2.light + "%)";
-
+this.current.ld2.estilo2= "color:hsl(" + this.current.ld2.hue + "," + this.current.ld2.saturation + "%, " + this.current.ld2.light + "%)";
                 this.current.d1= this.darkenHSL(this.saturateHSL(this.current.ori, .30), .6);
                 this.current.d1.estilo= "background:hsl(" + this.current.d1.hue + "," + this.current.d1.saturation + "%, " + this.current.d1.light + "%)";
+                this.current.d1.estilo2= "color:hsl(" + this.current.d1.hue + "," + this.current.d1.saturation + "%, " + this.current.d1.light + "%)";
                 this.current.d2= this.darkenHSL(this.saturateHSL(this.current.ori, .65), .3);
                 this.current.d2.estilo= "background:hsl(" + this.current.d2.hue + "," + this.current.d2.saturation + "%, " + this.current.d2.light + "%)";
+                this.current.d2.estilo2= "color:hsl(" + this.current.d2.hue + "," + this.current.d2.saturation + "%, " + this.current.d2.light + "%)";
                 this.current.dd1= this.darkenHSL(this.desaturateHSL(this.current.ori, .60), .6);
                 this.current.dd1.estilo= "background:hsl(" + this.current.dd1.hue + "," + this.current.dd1.saturation + "%, " + this.current.dd1.light + "%)";
+                this.current.dd1.estilo2= "color:hsl(" + this.current.dd1.hue + "," + this.current.dd1.saturation + "%, " + this.current.dd1.light + "%)";
                 this.current.dd2= this.darkenHSL(this.desaturateHSL(this.current.ori, .35), .3);
                 this.current.dd2.estilo= "background:hsl(" + this.current.dd2.hue + "," + this.current.dd2.saturation + "%, " + this.current.dd2.light + "%)";
-                this.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
+                this.current.dd2.estilo2= "color:hsl(" + this.current.dd2.hue + "," + this.current.dd2.saturation + "%, " + this.current.dd2.light + "%)";
+                this.$.color.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
                 this.set("current",this.current);
            
             }
@@ -138,6 +185,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             connectedCallback() {
                 super.connectedCallback();
                 this.setcolor();
+                this.icopen=false;
                
             }
             //static get observedAttributes() { return ["current"]; }

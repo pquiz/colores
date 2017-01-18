@@ -51,7 +51,9 @@
     "iron-meta": "2.0-preview",
     "iron-overlay-behavior": "2.0-preview",
     "iron-validatable-behavior": "2.0-preview",
-    "paper-menu": "PolymerElements/paper-menu#^1.2.2"
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
+    "color": "^3.0.4",
+    "paper-swatch-picker": "PolymerElements/paper-swatch-picker#^1.0.2"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
@@ -86,6 +88,22 @@
     "iron-menu-behavior": "2.0-preview",
     "paper-styles": "2.0-preview",
     "iron-flex-layout": "2.0-preview",
-    "iron-selector": "2.0-preview"
+    "iron-selector": "2.0-preview",
+    "iron-meta": "2.0-preview",
+    "paper-icon-button": "2.0-preview",
+    "paper-behaviors": "2.0-preview",
+    "iron-validatable-behavior": "2.0-preview",
+    "iron-form-element-behavior": "2.0-preview",
+    "paper-ripple": "2.0-preview",
+    "paper-menu-button": "2.0-preview",
+    "iron-dropdown": "2.0-preview",
+    "iron-overlay-behavior": "2.0-preview",
+    "iron-fit-behavior": "2.0-preview",
+    "neon-animation": "2.0-preview",
+    "paper-item": "2.0-preview",
+    "paper-listbox": "2.0-preview",
+    "iron-iconset-svg": "2.0-preview",
+    "iron-icon": "2.0-preview",
+    "iron-checked-element-behavior": "2.0-preview"
   }
 }

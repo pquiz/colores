@@ -29,94 +29,210 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="shared-styles.html">
 <dom-module id="my-app">
     <template>
-    <style include="shared-styles">
-       :host {
-        display: block;
-      }
-      
-      .drawer-content {
-        margin-top: 20vh;
-        height: calc(100% - 80px);
-        overflow: auto;
-      }
-      
-      app-header-layout {
-        min-height: 100vh;
-      }
-      
-      app-header {
-      }
-      
-      app-header paper-icon-button {
-      }
-      
-      .drawer-list {
-        margin: 0 20px;
-      }
-      
-      .drawer-list a {
-        display: block;
-        padding: 0 16px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-        line-height: 40px;
-      }
-      
-      .drawer-list a.iron-selected {
-      
-        font-weight: bold;
-      }
-    </style>
-    <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-    <!-- Main content -->
-    <app-header-layout >
-      <app-header slot="header" fixed condenses effects="waterfall">
-        <app-toolbar id="toolbar">
-          <paper-icon-button id="toggle" icon="menu" on-click="_toggleDrawer"></paper-icon-button>
-          <div >Pedro Quiz Ramos</div>
-          
-        </app-toolbar>
-         <paper-tabs selected="0" sticky id="tabs">
-      <paper-tab>TAB 1</paper-tab>
-      <paper-tab>TAB 2</paper-tab>
-      <paper-tab>TAB 3</paper-tab>
-    </paper-tabs>
-      </app-header>
-      <!-- Drawer content -->
-      <app-drawer-layout id="drawerLayout">
-        <app-drawer id="mydrawer" opened="{{drawerOpened}}" swipe-open slot="drawer">
-          <div class="drawer-content">
-            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-             <paper-listbox>
-              <a name="view1" href="/view1">
-                <paper-icon-item>
-                  <iron-icon icon="places:spa" item-icon></iron-icon> <span>Inicio</span>
-                </paper-icon-item>
-              </a>
-              <a name="view2" href="/view2">
-                <paper-icon-item> 
-                  <iron-icon icon="places:fitness-center" item-icon></iron-icon> <span>Actividades</span>
-                </paper-icon-item>
-              </a>
-              <a name="view3" href="/view3">
-                <paper-icon-item>
-                  <iron-icon icon="icons:polymer" item-icon></iron-icon> <span>Interese</span>
-                </paper-icon-item>
-              </a>
-             </paper-listbox>
-            </iron-selector>
-          </div>
-        </app-drawer>
-        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3" primary="{{appprimary}}" secondary="{{appsecondary}}" c1="{{appc1}}" c2="{{appc2}}"></my-view3>
-          <my-view404 name="view404"></my-view404>
-        </iron-pages>
-      </app-drawer-layout>
-    </app-header-layout>
-  </template>
+        <style include="shared-styles">
+            :host
+            {
+                display: block;
+            }
+
+            .drawer-content
+            {
+                margin-top: 20vh;
+                height: calc(100% - 80px);
+                overflow: auto;
+            }
+
+            app-header-layout
+            {
+                min-height: 100vh;
+            }
+
+
+            .drawer-list
+            {
+                margin: 0 20px;
+            }
+
+                .drawer-list a
+                {
+                    display: block;
+                    padding: 0 16px;
+                    text-decoration: none;
+                    color: var(--app-secondary-color);
+                    line-height: 40px;
+                }
+
+                    .drawer-list a.iron-selected
+                    {
+                        font-weight: bold;
+                    }
+
+
+            :root
+            {
+                --host-container:
+
+            {
+                @apply(--layout-vertical);
+                width: 100%;
+                height: 100%;
+            }
+
+            ; --host-horizontal:
+            {
+                @apply(--layout-horizontal);
+                @apply(--layout-wrap);
+                width: 100%;
+                height: 100%;
+                padding: 10px;
+            }
+
+            ; --seccion--full:
+            {
+                width: 100%;
+                height: 90vh;
+                @apply(--layout-vertical);
+            }
+
+            ; --sectionfull-center:
+            {
+                @apply(--layout-self-center);
+            }
+
+            ; --onecolumn-container:
+            {
+                @apply(--layout-horizontal);
+                @apply(--layout-horizontal);
+                width: 70%;
+                height: 100%;
+            }
+
+            --app-secondary-color: #002de0; 
+            --app-primary-color: #ffcc00; 
+            --default-primary-color: #002de0;
+             --dark-primary-color: #242a42; 
+            --light-primary-color: #708dff; 
+            --text-primary-color:#ffffff;
+             --accent-color: #ffcc00;
+            --primary-background-color: #ffffff; 
+            --primary-text-color: #242a42;
+             --secondary-text-color: #665200;
+             --disabled-text-color: #313238;
+             --divider-color: #e0e0e0; 
+            --paper-checkbox-checked-color: #ffcc00;
+             --paper-checkbox-checked-ink-color: #002de0;
+             --paper-checkbox-unchecked-color: #665200; 
+            --paper-checkbox-unchecked-ink-color: #444444; 
+            --paper-checkbox-label-color: #242a42; 
+            --paper-fab-background: #002de0;
+             --paper-fab-disabled-background: #afb1b9;
+             --paper-fab-disabled-text: #313238;
+             --paper-icon-button-disabled-text: #afb1b9;
+             --paper-input-container-color: #919191;
+             --paper-input-container-focus-color: #002de0;
+             --paper-input-container-invalid-color: #ff6e40;
+             --paper-input-container-input-color: #919191; 
+            --paper-menu-background-color: #adbeff;
+             --paper-menu-color: #242a42; 
+            --paper-menu-disabled-color: #afb1b9;
+             --paper-progress-active-color: #ffcc00; 
+            --paper-progress-secondary-color: #002de0;
+             --paper-radio-button-checked-color: #ffcc00;
+             --paper-radio-button-checked-ink-color: #d6d8e3;
+             --paper-radio-button-unchecked-color: #665200;
+             --paper-radio-button-unchecked-ink-color: #444444; 
+            --paper-radio-button-label-color: #242a42;
+             --paper-slider-knob-color: #ffcc00;
+             --paper-slider-active-color: #ffcc00; 
+            --paper-slider-pin-color: #ffcc00;
+             --paper-spinner-layer-1-color: #ffcc00;
+             --paper-spinner-layer-2-color: #ffcc00;
+             --paper-spinner-layer-3-color: #ffcc00;
+             --paper-spinner-layer-4-color: #ffcc00;
+             --paper-tabs-selection-bar-color: #932528;
+             --paper-tab-ink: #932528; 
+            --app-tabs-selection-bar-color: #002de0;
+             --app-tab-ink: #002de0; 
+            --paper-toggle-button-checked-bar-color: #665200; 
+            --paper-toggle-button-checked-button-color: #ffcc00;
+             --paper-toggle-button-checked-ink-color: #ffcc00; 
+            --paper-toggle-button-unchecked-bar-color: #242a42;
+             --paper-toggle-button-unchecked-button-color: white;
+             --paper-toggle-button-unchecked-ink-color: white; 
+            --paper-toolbar-background: #e6bd1a; 
+            --paper-toolbar-color: #242a42;
+             --app-toolbar-background: #e6bd1a;
+             --app-toolbar-color:#242a42; 
+            --hero-bgcolor:#555555; 
+            background:var(--primary-background-color);
+            }
+
+
+             html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            min-height: 100%;
+            color: #242a42;
+           background:var(--primary-background-color);
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 400;
+        }
+        
+        
+
+
+        </style>
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+        <!-- Main content -->
+        <app-header-layout>
+            <app-header slot="header" fixed condenses effects="waterfall">
+                <app-toolbar id="toolbar">
+                    <paper-icon-button id="toggle" icon="menu" on-click="_toggleDrawer"></paper-icon-button>
+                    <div>Pedro Quiz Ramos</div>
+
+                </app-toolbar>
+                <paper-tabs selected="0" sticky id="tabs">
+                    <paper-tab>TAB 1</paper-tab>
+                    <paper-tab>TAB 2</paper-tab>
+                    <paper-tab>TAB 3</paper-tab>
+                </paper-tabs>
+            </app-header>
+            <!-- Drawer content -->
+            <app-drawer-layout id="drawerLayout">
+                <app-drawer id="mydrawer" opened="{{drawerOpened}}" swipe-open slot="drawer">
+                    <div class="drawer-content">
+                        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                            <paper-listbox>
+                                <a name="view1" href="/view1">
+                                    <paper-icon-item>
+                                        <iron-icon icon="places:spa" item-icon></iron-icon> <span>Inicio</span>
+                                    </paper-icon-item>
+                                </a>
+                                <a name="view2" href="/view2">
+                                    <paper-icon-item>
+                                        <iron-icon icon="places:fitness-center" item-icon></iron-icon> <span>Actividades</span>
+                                    </paper-icon-item>
+                                </a>
+                                <a name="view3" href="/view3">
+                                    <paper-icon-item>
+                                        <iron-icon icon="icons:polymer" item-icon></iron-icon> <span>Interese</span>
+                                    </paper-icon-item>
+                                </a>
+                            </paper-listbox>
+                        </iron-selector>
+                    </div>
+                </app-drawer>
+                <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
+                    <my-view1 name="view1" c2="{{appc2}}"></my-view1>
+                    <my-view2 name="view2"></my-view2>
+                    <my-view3 name="view3" primary="{{appprimary}}" secondary="{{appsecondary}}" c1="{{appc1}}" c2="{{appc2}}"></my-view3>
+                    <my-view404 name="view404"></my-view404>
+                </iron-pages>
+            </app-drawer-layout>
+        </app-header-layout>
+    </template>
     <script>
         class MyApp extends Polymer.Element {
             static get is() {
@@ -134,18 +250,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         draweropen: {
                             type: Boolean,
                             reflectToAttribute: true
-                        },appprimary:{type: Object,
+                        }, appprimary: {
+                            type: Object,
                             reflectToAttribute: true, observer: '_appPrimaryChanged'
-                            },
-                          appsecondary:{type: Object,
-                              reflectToAttribute: true, observer: '_appSecondaryChanged'
-                          },
-                          appc1:{type: Object,
-                              reflectToAttribute: true, observer: '_appC1Changed'
-                          },
-                          appc2:{type: Object,
-                              reflectToAttribute: true, observer: '_appC2Changed'
-                          }
+                        },
+                        appsecondary: {
+                            type: Object,
+                            reflectToAttribute: true, observer: '_appSecondaryChanged'
+                        },
+                        appc1: {
+                            type: Object,
+                            reflectToAttribute: true, observer: '_appC1Changed'
+                        },
+                        appc2: {
+                            type: Object,
+                            reflectToAttribute: true, observer: '_appC2Changed'
+                        }
                     },
                     observers: [
                         '_routePageChanged(routeData.page)'
@@ -154,92 +274,96 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             _appPrimaryChanged(appp, desc) {
                 let color = "hsl(" + this.appprimary.dd2.hue + "," + this.appprimary.dd2.saturation + "%, " + this.appprimary.dd2.light + "%)";
-                   this.$.tabs.style.background="hsl("+this.appprimary.ori.hue+","+this.appprimary.ori.saturation+"%, "+this.appprimary.ori.light+"%)";
-            this.$.toolbar.style.background = "hsl(" + this.appprimary.ori.hue + "," + this.appprimary.ori.saturation + "%, " + this.appprimary.ori.light + "%)";
-            this.$.toolbar.style.color = color;
- 
-            /* this.notifyPath("appsecondary.ori.light");
-             this.notifyPath("appsecondary.ori.saturation");
-             this.notifyPath("appsecondary.ori");
-             this.notifyPath("appsecondary");*/
+                this.$.tabs.style.background = "hsl(" + this.appprimary.ori.hue + "," + this.appprimary.ori.saturation + "%, " + this.appprimary.ori.light + "%)";
+                this.$.toolbar.style.background = "hsl(" + this.appprimary.ori.hue + "," + this.appprimary.ori.saturation + "%, " + this.appprimary.ori.light + "%)";
+                this.$.toolbar.style.color = color;
+
+                /* this.notifyPath("appsecondary.ori.light");
+                 this.notifyPath("appsecondary.ori.saturation");
+                 this.notifyPath("appsecondary.ori");
+                 this.notifyPath("appsecondary");*/
             }
             _appSecondaryChanged(appp, desc) {
-         
+
             }
             _appC1Changed(appp, desc) {
-               //this.updateStyles({ '--my-dynamic-property': 'red' });
+                //this.updateStyles({ '--my-dynamic-property': 'red' });
 
 
             }
             _appC2Changed(appp, desc) {
-                 //this.updateStyles({ '--my-dynamic-property': 'red' });
-let colorbg = "hsl(" + this.appc2.ld2.hue + "," + this.appc2.ld2.saturation + "%, " + this.appc2.ld2.light + "%)";
-         this.style.background = colorbg;
 
-            }
-              connectedCallback() {
-            super.connectedCallback();
-            this.appprimary= {
-                ori:{ hue: 190,
-                    saturation: 100,
-                    light: 45},
-                l1: { hue: 190, saturation: 100, light: 65 },
-                l2: { hue: 190, saturation: 100, light: 67 },
-                ld1: { hue: 190, saturation: 40, light: 70 },
-                ld2: { hue: 190, saturation: 65, light: 60 },
-                d1: { hue: 190, saturation: 100, light: 30 },
-                d2: { hue: 190, saturation: 100, light: 15 },
-                dd1: { hue: 190, saturation: 70, light: 30 },
-                dd2: { hue: 190, saturation: 40, light: 15 }
-            };
-            this.appsecondary={
-                ori:{ hue: 10, saturation: 100, light: 55},
-                l1: { hue: 10, saturation: 100, light: 70 },
-                l2: { hue: 10, saturation:100, light: 94 },
-                ld1: { hue: 10, saturation: 60, light: 70 },
-                ld2: { hue: 10, saturation: 35, light: 85 },
-                d1: { hue: 10, saturation: 100, light: 35 },
-                d2: { hue: 10, saturation: 100, light: 10 },
-                dd1: { hue: 10, saturation: 70, light: 35 },
-                dd2: { hue: 10, saturation: 40, light: 10 }
-            };
-/*
-            this.notifyPath("appsecondary")
-            this.notifyPath("appprimary")*/
-          this.set('appc1', {
-                ori: { hue: 145, saturation: 100, light: 55 },
-                l1: { hue: 145, saturation: 100, light: 70 },
-                l2: { hue: 145, saturation: 100, light: 94 },
-                ld1: { hue: 145, saturation: 60, light: 70 },
-                ld2: { hue: 145, saturation: 35, light: 85 },
-                d1: { hue: 145, saturation: 100, light: 35 },
-                d2: { hue: 145, saturation: 100, light: 10 },
-                dd1: { hue: 145, saturation: 70, light: 35 },
-                dd2: { hue: 145, saturation: 40, light:10 }
-            });
-            this.set('appc2', {
-                ori: {hue: 235, saturation: 100, light: 55},
-                l1: { hue: 235, saturation: 100, light: 70 },
-                l2: { hue: 235, saturation: 100, light:94 },
-                ld1: { hue: 235, saturation: 60, light: 70 },
-                ld2: { hue: 235, saturation: 35, light: 85 },
-                d1: { hue: 235, saturation: 100, light: 35 },
-                d2: { hue: 235, saturation: 100, light: 10 },
-                dd1: { hue: 235, saturation: 70, light: 35 },
-                dd2: { hue: 235, saturation: 40, light: 10 }
-            });
-         
+                let colorbg = "hsl(" + this.appc2.ori.hue + "," + this.appc2.ori.saturation + "%, " + this.appc2.ori.light + "%)";
 
+                this.updateStyles({ '--primary-background-color': colorbg });
             
+
             }
-             _computeColorHSL(inicio, lhue, lsat, llig) {
+            connectedCallback() {
+                super.connectedCallback();
+                this.appprimary = {
+                    ori: {
+                        hue: 190,
+                        saturation: 100,
+                        light: 45
+                    },
+                    l1: { hue: 190, saturation: 100, light: 65 },
+                    l2: { hue: 190, saturation: 100, light: 67 },
+                    ld1: { hue: 190, saturation: 40, light: 70 },
+                    ld2: { hue: 190, saturation: 65, light: 60 },
+                    d1: { hue: 190, saturation: 100, light: 30 },
+                    d2: { hue: 190, saturation: 100, light: 15 },
+                    dd1: { hue: 190, saturation: 70, light: 30 },
+                    dd2: { hue: 190, saturation: 40, light: 15 }
+                };
+                this.appsecondary = {
+                    ori: { hue: 10, saturation: 100, light: 55 },
+                    l1: { hue: 10, saturation: 100, light: 70 },
+                    l2: { hue: 10, saturation: 100, light: 94 },
+                    ld1: { hue: 10, saturation: 60, light: 70 },
+                    ld2: { hue: 10, saturation: 35, light: 85 },
+                    d1: { hue: 10, saturation: 100, light: 35 },
+                    d2: { hue: 10, saturation: 100, light: 10 },
+                    dd1: { hue: 10, saturation: 70, light: 35 },
+                    dd2: { hue: 10, saturation: 40, light: 10 }
+                };
+                /*
+                            this.notifyPath("appsecondary")
+                            this.notifyPath("appprimary")*/
+                this.appc1={
+                    ori: { hue: 145, saturation: 100, light: 55 },
+                    l1: { hue: 145, saturation: 100, light: 70 },
+                    l2: { hue: 145, saturation: 100, light: 94 },
+                    ld1: { hue: 145, saturation: 60, light: 70 },
+                    ld2: { hue: 145, saturation: 35, light: 85 },
+                    d1: { hue: 145, saturation: 100, light: 35 },
+                    d2: { hue: 145, saturation: 100, light: 10 },
+                    dd1: { hue: 145, saturation: 70, light: 35 },
+                    dd2: { hue: 145, saturation: 40, light: 10 }
+                };
+                this.appc2= {
+                    ori: { hue: 235, saturation: 100, light: 55 },
+                    l1: { hue: 235, saturation: 100, light: 70 },
+                    l2: { hue: 235, saturation: 100, light: 94 },
+                    ld1: { hue: 235, saturation: 60, light: 70 },
+                    ld2: { hue: 235, saturation: 35, light: 85 },
+                    d1: { hue: 235, saturation: 100, light: 35 },
+                    d2: { hue: 235, saturation: 100, light: 10 },
+                    dd1: { hue: 235, saturation: 70, light: 35 },
+                    dd2: { hue: 235, saturation: 40, light: 10 }
+                };
+
+
+
+            }
+            _computeColorHSL(inicio, lhue, lsat, llig) {
 
                 return {
-                    ori: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation:inicio.saturation , light:inicio.light },
-                    l1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: inicio.light+((100-inicio.light)*.4) },
-                    l2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: inicio.light+((100-inicio.light)*.85)},
-                    ld1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 40, light: inicio.light+((100-inicio.light)*.4) },
-                    ld2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 65, light: inicio.light+((100-inicio.light)*.85) },
+                    ori: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: inicio.saturation, light: inicio.light },
+                    l1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: inicio.light + ((100 - inicio.light) * .4) },
+                    l2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: inicio.light + ((100 - inicio.light) * .85) },
+                    ld1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 40, light: inicio.light + ((100 - inicio.light) * .4) },
+                    ld2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 65, light: inicio.light + ((100 - inicio.light) * .85) },
                     d1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 30 },
                     d2: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 100, light: 15 },
                     dd1: { hue: ((inicio.hue + lhue) % 360 < 0) ? 360 + ((inicio.hue + lhue) % 360) : (inicio.hue + lhue) % 360, saturation: 70, light: 30 },
@@ -252,7 +376,7 @@ let colorbg = "hsl(" + this.appc2.ld2.hue + "," + this.appc2.ld2.saturation + "%
                 //this.$.mydrawer.toggle();
                 if (this.$.drawerLayout.forceNarrow || !this.$.drawerLayout.narrow) {
                     this.$.drawerLayout.forceNarrow = !this.$.drawerLayout.forceNarrow;
-                   
+
                 } else {
                     this.$.drawerLayout.drawer.toggle();
                 }
@@ -274,6 +398,6 @@ let colorbg = "hsl(" + this.appc2.ld2.hue + "," + this.appc2.ld2.saturation + "%
         }
 
         customElements.define(MyApp.is, MyApp);
-      
+
     </script>
 </dom-module>

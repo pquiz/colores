@@ -1,4 +1,4 @@
-<!--
+!--
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -9,56 +9,338 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/paper-swatch-picker/paper-swatch-picker.html">
 <link rel="import" href="shared-styles.html">
-
+<link rel="import" href="my-color.html"> 
 <dom-module id="my-view1">
     <template>
     <style include="shared-styles">
       :host {
       @apply(--host-container);
+      width:100%;
+      height:100%;
       
       }
-    </style>
+      .card{width:58%}
+      .ctop{
+      width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 10px;
+      }
+      .chero{
+         height: 50vh !important;
+    /* DISPLAY: initial; */
+    /* align-self: center; */
+    /* vertical-align: middle; */
+    background:var(--hero-bgcolor);
+      }
+       .chero h1{
+         ALIGN-SELF: center;
+    align-content: space-around;
+    VERTICAL-ALIGN: middle;
+    display: block;
+    font-size: 5rem;
+    font-weight: bolder;
+    font-stretch: extra-expanded !important;
+    color: hsl(0, 100%, 50%);
+    margin-left: auto;
 
+	text-shadow: 3px 6px 10px rgba(0, 0, 0, 0.6);
+
+    margin-right: auto;
+      }
+ my-color
+            {
+                display: block;
+                width: 29%;
+                    max-width: 300px;
+                    min-width:270px;
+                height: 90%;
+              
+                margin: 4px;
+               
+                /*700px 30%*/
+            }
+ my-colorl {
+ width:28%;
+        display: inline-block;
+        background: white;
+        box-sizing: border-box;
+      margin: 0px;
+    padding: 11px;
+    border-radius: 2px;
+      }
+    </style>
+    <div class="ctop chero">
+<h1>Colores para polymer</h1>
+</div>
+<div class="ctop">
     <div class="card">
       <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div> <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div> <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>    <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>    <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>    <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
-  </template>
+      <h2>Seleccionar color de fondo</h2>
+      <p>Los colores base son seleccionados por el control que dice color. Van de 0 a 360 que corresponden.</p>
+      <p>La intens.idad del color se selecciona del control que dice saturacion.</p>
+      <p>La tonalidad del color se selecciona del control que dice iluminacion.</p>
+    </div> 
+      <my-color id="sprimary" current={{c2}} tag="Fondo"></my-color>
+    
+    
+    <section hero class="ctop">
+     <div class="horizontal center-justified layout">
 
+        <div class="horizontal-section-wrapper">
+          <h4>General</h4>
+          <div class="horizontal-section">
+
+
+                    <table>
+                        <tbody><tr>
+                            <th>Body background</th>
+                            <td><input class="spectrum" type="text" name="primary_bg_color" value="#2a363b" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(42, 54, 59);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Hero background</th>
+                            <td><input class="spectrum" type="text" name="hero_bg_color" value="#3a474c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(58, 71, 76);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Primary text</th>
+                            <td><input class="spectrum" type="text" name="primary_text_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Secondary text</th>
+                            <td><input class="spectrum" type="text" name="secondary_text_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Links</th>
+                            <td><input class="spectrum" type="text" name="link_text_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 10px;">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th>Toolbar background</th>
+                            <td><input class="spectrum" type="text" name="toolbar_bg_color" value="#e84a5f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 74, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Toolbar text</th>
+                            <td><input class="spectrum" type="text" name="toolbar_text_color" value="#ffffff" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 10px;">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th>Progress bar active</th>
+                            <td><input class="spectrum" type="text" name="paper_progress_active_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Progress bar secondary</th>
+                            <td><input class="spectrum" type="text" name="paper_progress_secondary_color" value="#ff847c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 132, 124);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 10px;">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th>Spinner</th>
+                            <td><input class="spectrum" type="text" name="spinner_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                    </tbody></table>
+
+          </div>
+        </div>
+
+        <div class="horizontal-section-wrapper">
+          <h4>Buttons</h4>
+          <div class="horizontal-section">
+
+
+
+
+                    <table>
+                        <tbody><tr>
+                            <th>Primary button</th>
+                            <td><input class="spectrum" type="text" name="primary_btn_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Secondary button</th>
+                            <td><input class="spectrum" type="text" name="secondary_btn_color" value="#ff847c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 132, 124);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Success button</th>
+                            <td><input class="spectrum" type="text" name="success_btn_color" value="#99b898" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(153, 184, 152);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Info button</th>
+                            <td><input class="spectrum" type="text" name="info_btn_color" value="#fecea8" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(254, 206, 168);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Warning button</th>
+                            <td><input class="spectrum" type="text" name="warning_btn_color" value="#fff59d" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 245, 157);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Error button</th>
+                            <td><input class="spectrum" type="text" name="error_btn_color" value="#f8bbd0" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(248, 187, 208);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Disabled button</th>
+                            <td><input class="spectrum" type="text" name="disabled_btn_color" value="#7a8e95" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(122, 142, 149);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="color-group">Toggle buttons</th>
+                        </tr>
+                        <tr>
+                            <th>Checked button</th>
+                            <td><input class="spectrum" type="text" name="paper_toggle_button_checked_button_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Checked bar</th>
+                            <td><input class="spectrum" type="text" name="paper_toggle_button_checked_bar_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Unchecked button</th>
+                            <td><input class="spectrum" type="text" name="paper_toggle_button_unchecked_button_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Uhchecked bar</th>
+                            <td><input class="spectrum" type="text" name="paper_toggle_button_unchecked_bar_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                    </tbody></table>
+
+          </div>
+        </div>
+
+        <div class="horizontal-section-wrapper">
+          <h4>Form Widgets</h4>
+          <div class="horizontal-section">
+
+
+
+
+
+                    <table>
+                        <tbody><tr>
+                            <th>Checkbox checked</th>
+                            <td><input class="spectrum" type="text" name="checkbox_checked_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Checkbox unchecked</th>
+                            <td><input class="spectrum" type="text" name="checkbox_unchecked_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Checkbox label</th>
+                            <td><input class="spectrum" type="text" name="checkbox_label_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 10px;">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th>Radio button checked</th>
+                            <td><input class="spectrum" type="text" name="radio_checked_color" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Radio button unchecked</th>
+                            <td><input class="spectrum" type="text" name="radio_unchecked_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Radio button label</th>
+                            <td><input class="spectrum" type="text" name="radio_label_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th style="padding-top: 10px;">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th>Slider knob</th>
+                            <td><input class="spectrum" type="text" name="slider_knob" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Slider active</th>
+                            <td><input class="spectrum" type="text" name="slider_progress" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Slider pin</th>
+                            <td><input class="spectrum" type="text" name="slider_pin" value="#e8485f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 72, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                    </tbody></table>
+
+          </div>
+        </div>
+
+
+        <div class="horizontal-section-wrapper">
+          <h4>Tabs and Menus</h4>
+          <div class="horizontal-section">
+
+
+
+                    <table>
+                        <tbody><tr>
+                            <th colspan="2" class="color-group first">Paper tabs</th>
+                        </tr>
+                        <tr>
+                            <th>Background</th>
+                            <td><input class="spectrum" type="text" name="paper_tabs_background_color" value="#e84a5f" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(232, 74, 95);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Text</th>
+                            <td><input class="spectrum" type="text" name="paper_tabs_color" value="#ffffff" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Selection bar</th>
+                            <td><input class="spectrum" type="text" name="paper_tabs_selection_car_color" value="#ff847c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 132, 124);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Ink</th>
+                            <td><input class="spectrum" type="text" name="paper_tab_ink_color" value="#ff847c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 132, 124);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="color-group">Paper menu</th>
+                        </tr>
+                        <tr>
+                            <th>Background</th>
+                            <td><input class="spectrum" type="text" name="paper_menu_background_color" value="#3a474c" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(58, 71, 76);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Text</th>
+                            <td><input class="spectrum" type="text" name="paper_menu_color" value="white" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(255, 255, 255);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                        <tr>
+                            <th>Disabled text</th>
+                            <td><input class="spectrum" type="text" name="paper_menu_disabled_color" value="#7a8e95" style="display: none;"><div class="sp-replacer sp-light"><div class="sp-preview"><div class="sp-preview-inner" style="background-color: rgb(122, 142, 149);"></div></div><div class="sp-dd">▼</div></div></td>
+                        </tr>
+                    </tbody></table>
+
+          </div>
+        </div>
+
+      </div>
+     </section>
+  </template>
+    </div>
     <script>
         class MyView1 extends Polymer.Element {
             static get is() {
                 return 'my-view1';
             }
-            
+            static get config() {
+                return {
+                    properties: {
+                        c2: {
+                            type: Object,
+                            reflectToAttribute: true
+                        }
+                    }
+                }
+            }
+            connectedCallback() {
+                super.connectedCallback();
+
+
+            }
+
         }
         customElements.define(MyView1.is, MyView1);
     </script>

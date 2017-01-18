@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html" />
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html" />
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="my-color.html">
 <dom-module id="my-view3">
     <template>
@@ -31,11 +31,9 @@ background: var(--paper-checkbox-checked-color);
                 display: block;
                 width: 20%;
                 height: 45%;
-                border-radius: 50%;
                 margin: 4px;
-                webkit-box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
-                moz-box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
-                box-shadow: 4px 3px 9px 6px rgba(96,122,113,0.69);
+                   max-width: 300px;
+                    min-width:270px;
                 /*700px 30%*/
             }
 
@@ -54,12 +52,12 @@ background: var(--paper-checkbox-checked-color);
             <h2>Color primario</h2>
             <p> Tono del color {{primary.ori.hue}} saturacion {{primary.ori.saturation}} luminocidad {{primary.ori.light}}</p>
             <div class="contenedor-colores">
-                <my-color id="pprimary" current={{primary}} tag="1"></my-color>
-                <my-color id="psecondary" current={{secondary}}  tag="2"></my-color>
-                <my-color id="pc1" current={{c1}}  tag="3"></my-color>
-                <my-color id="pc2" current={{c2}}  tag="4"></my-color>
+                <my-color id="pprimary" current={{primary}} class="shadow shadow-6dp" tag="primario"></my-color>
+                <my-color id="psecondary" current={{secondary}}  tag="secundario"></my-color>
+                <my-color id="pc1" current={{c1}}  tag="complementario"></my-color>
+                <my-color id="pc2" current={{c2}}  tag="Fondo"></my-color>
             </div>
-            <paper-button raised secondary>Fijar estilos</paper-button><paper-checkbox></paper-checkbox>
+            <paper-button raised secondary>Fijar estilos</paper-button>
         </section>
     </template>
     <script>
@@ -109,13 +107,13 @@ background: var(--paper-checkbox-checked-color);
                 });
                         this.secondary = this._computeColorHSL(this.primary.ori, 180, 0, 100);
                         this.set("secondary.ori", this.secondary.ori);
-                        this.$.psecondary.setcolor();
+                      //  this.$.psecondary.setcolor();
                                 this.c1 = this._computeColorHSL(this.primary.ori, 46, 0, 100);
                         this.set("c1.ori", this.c1.ori);
-                        this.$.pc1.setcolor();
-                         this.c2 = this._computeColorHSL(this.primary.ori, 92         , 0, 100);
-                        this.set("c2.ori", this.c2.ori);
-                        this.$.pc2.setcolor();
+                        //this.$.pc1.setcolor();
+                         
+                        
+                        
             }
             _setsecundary(nsec) {
                       //this.updateStyles({ '--my-dynamic-property': 'red' });
@@ -136,11 +134,19 @@ background: var(--paper-checkbox-checked-color);
                 
             }
             _setc1() {
-               
+                let aux = 'hsl(' + this.c1.ori.hue + ' ,' + this.c1.ori.saturation + '%,' + this.c1.ori.light + '%)';
+
+                this.updateStyles({
+                    '--primary-background-color': aux
+                });
 
             }
             _setc2() {
-                 //this.updateStyles({ '--my-dynamic-property': 'red' });
+                //this.updateStyles({ '--my-dynamic-property': 'red' });
+                let aux = 'hsl(' + this.c2.ori.hue + ' ,' + this.c2.ori.saturation + '%,' + this.c2.ori.light + '%)';
+                this.updateStyles({
+                    '--hero-bgcolor': aux
+                });             
 
             }
             _computeColorHSL(inicio, lhue, lsat, llig) {
