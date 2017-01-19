@@ -73,19 +73,19 @@ paper-card{
         </style>
   
 <paper-card id="color" heading="{{tag}}">
-<div class="card-content subcolores"> <div class="subcolor" style$="[[current.l1.estilo]]"></div>
-<div class="subcolor" style$="[[current.l2.estilo]]"></div>
-                <div class="subcolor" style$="[[current.ld1.estilo]]"></div><div class="subcolor" style$="[[current.ld2.estilo]]"></div>
-                <div class="subcolor" style$="[[current.d1.estilo]]"></div><div class="subcolor" style$="[[current.d2.estilo]]"></div>
-                <div class="subcolor" style$="[[current.dd1.estilo]]"></div><div class="subcolor" style$="[[current.dd2.estilo]]"></div>
+<div class="card-content subcolores"> <div class="subcolor" style$="[[auxiliar.l1.estilo]]"></div>
+<div class="subcolor" style$="[[auxiliar.l2.estilo]]"></div>
+                <div class="subcolor" style$="[[auxiliar.ld1.estilo]]"></div><div class="subcolor" style$="[[auxiliar.ld2.estilo]]"></div>
+                <div class="subcolor" style$="[[auxiliar.d1.estilo]]"></div><div class="subcolor" style$="[[auxiliar.d2.estilo]]"></div>
+                <div class="subcolor" style$="[[auxiliar.dd1.estilo]]"></div><div class="subcolor" style$="[[auxiliar.dd2.estilo]]"></div>
                 </div>
-        <div class="card-actions " style$="[[current.ori.estilo]]">
-            <h5 style$="[[current.l2.estilo2]]">Tono</h5>
-            <paper-slider id="hue" pin value="{{current.ori.hue}}" max="360" editable on-change="_hueChanged"></paper-slider>
-            <h5 style$="[[current.ld2.estilo2]]">Saturacion</h5>
-            <paper-slider id="saturatiom" pin value="{{current.ori.saturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
-            <h5 style$="[[current.d1.estilo2]]">Lumocidad</h5>
-            <paper-slider id="luz" pin value="{{current.ori.light}}" max="100" editable on-change="_luzChanged"></paper-slider>
+        <div class="card-actions " style$="[[auxiliar.ori.estilo]]">
+            <h5 style$="[[auxiliar.l2.estilo2]]">Tono</h5>
+            <paper-slider id="hue" pin value="{{lhue}}" max="360" editable on-change="_hueChanged"></paper-slider>
+            <h5 style$="[[auxiliar.ld2.estilo2]]">Saturacion</h5>
+            <paper-slider id="saturatiom" pin value="{{lsaturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
+            <h5 style$="[[auxiliar.d1.estilo2]]">Lumocidad</h5>
+            <paper-slider id="luz" pin value="{{llight}}" max="100" editable on-change="_luzChanged"></paper-slider>
             <paper-icon-button id="ibutton"
                 icon="hardware:keyboard-arrow-up"
                 title="Otros formatos"
@@ -118,8 +118,21 @@ paper-card{
                         }, current: {
                             type: Object,
                             reflectToAttribute: true
+                        }, lhue: {
+                            type: String,
+                            reflectToAttribute: true
+                        }, lsaturation: {
+                            type: String,
+                            reflectToAttribute: true
+                        },
+                        llight: {
+                            type: String,
+                            reflectToAttribute: true
                         }, tag: {
                             type: String,
+                            reflectToAttribute: false
+                        }, auxiliar: {
+                            type: Object,
                             reflectToAttribute: false
                         }
                     }
@@ -136,37 +149,38 @@ paper-card{
                  this.$.more_info.toggle();
                 }
             setcolor() {
+                this.auxiliar = this._computeColorHSL(this.lhue, this.lsaturation, this.llight);
 
-                this.$.color.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
-                this.current.l1= this.luminateHSL(this.saturateHSL(this.current.ori, .30), .6);
-                this.current.l1.estilo= "background:hsl(" + this.current.l1.hue + "," + this.current.l1.saturation + "%, " + this.current.l1.light + "%)";
-                this.current.l1.estilo2= "color:hsl(" + this.current.l1.hue + "," + this.current.l1.saturation + "%, " + this.current.l1.light + "%)";
-                this.current.l2= this.luminateHSL(this.saturateHSL(this.current.ori, .65), .3);
-                this.current.l2.estilo= "background:hsl(" + this.current.l2.hue + "," + this.current.l2.saturation + "%, " + this.current.l2.light + "%)";
-                this.current.l2.estilo2= "color:hsl(" + this.current.l2.hue + "," + this.current.l2.saturation + "%, " + this.current.l2.light + "%)";
+                this.$.color.style.background = "hsl(" + this.auxiliar.ori.hue + "," + this.auxiliar.ori.saturation + "%, " + this.auxiliar.ori.light + "%)";
+                this.auxiliar.l1= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .30), .6);
+                this.auxiliar.l1.estilo= "background:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)";
+                this.auxiliar.l1.estilo2= "color:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)";
+                this.auxiliar.l2= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .65), .3);
+                this.auxiliar.l2.estilo= "background:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)";
+                this.auxiliar.l2.estilo2= "color:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)";
 
-                this.current.ld1= this.luminateHSL(this.desaturateHSL(this.current.ori, .60), .4);
-                this.current.ld1.estilo= "background:hsl(" + this.current.ld1.hue + "," + this.current.ld1.saturation + "%, " + this.current.ld1.light + "%)";
-                this.current.ld1.estilo2= "color:hsl(" + this.current.ld1.hue + "," + this.current.ld1.saturation + "%, " + this.current.ld1.light + "%)";
-                this.current.ld2= this.luminateHSL(this.desaturateHSL(this.current.ori, .35), .85);
-                this.current.ld2.estilo= "background:hsl(" + this.current.ld2.hue + "," + this.current.ld2.saturation + "%, " + this.current.ld2.light + "%)";
-this.current.ld2.estilo2= "color:hsl(" + this.current.ld2.hue + "," + this.current.ld2.saturation + "%, " + this.current.ld2.light + "%)";
-                this.current.d1= this.darkenHSL(this.saturateHSL(this.current.ori, .30), .6);
-                this.current.d1.estilo= "background:hsl(" + this.current.d1.hue + "," + this.current.d1.saturation + "%, " + this.current.d1.light + "%)";
-                this.current.d1.estilo2= "color:hsl(" + this.current.d1.hue + "," + this.current.d1.saturation + "%, " + this.current.d1.light + "%)";
-                this.current.d2= this.darkenHSL(this.saturateHSL(this.current.ori, .65), .3);
-                this.current.d2.estilo= "background:hsl(" + this.current.d2.hue + "," + this.current.d2.saturation + "%, " + this.current.d2.light + "%)";
-                this.current.d2.estilo2= "color:hsl(" + this.current.d2.hue + "," + this.current.d2.saturation + "%, " + this.current.d2.light + "%)";
-                this.current.dd1= this.darkenHSL(this.desaturateHSL(this.current.ori, .60), .6);
-                this.current.dd1.estilo= "background:hsl(" + this.current.dd1.hue + "," + this.current.dd1.saturation + "%, " + this.current.dd1.light + "%)";
-                this.current.dd1.estilo2= "color:hsl(" + this.current.dd1.hue + "," + this.current.dd1.saturation + "%, " + this.current.dd1.light + "%)";
-                this.current.dd2= this.darkenHSL(this.desaturateHSL(this.current.ori, .35), .3);
-                this.current.dd2.estilo= "background:hsl(" + this.current.dd2.hue + "," + this.current.dd2.saturation + "%, " + this.current.dd2.light + "%)";
-                this.current.dd2.estilo2= "color:hsl(" + this.current.dd2.hue + "," + this.current.dd2.saturation + "%, " + this.current.dd2.light + "%)";
-                this.$.color.style.background = "hsl(" + this.current.ori.hue + "," + this.current.ori.saturation + "%, " + this.current.ori.light + "%)";
-                this.set("current",this.current);
-           
-            }
+                this.auxiliar.ld1= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .60), .4);
+                this.auxiliar.ld1.estilo= "background:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)";
+                this.auxiliar.ld1.estilo2= "color:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)";
+                this.auxiliar.ld2= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .35), .85);
+                this.auxiliar.ld2.estilo= "background:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)";
+this.auxiliar.ld2.estilo2= "color:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)";
+                this.auxiliar.d1= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .30), .6);
+                this.auxiliar.d1.estilo= "background:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)";
+                this.auxiliar.d1.estilo2= "color:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)";
+                this.auxiliar.d2= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .65), .3);
+                this.auxiliar.d2.estilo= "background:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)";
+                this.auxiliar.d2.estilo2= "color:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)";
+                this.auxiliar.dd1= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .60), .6);
+                this.auxiliar.dd1.estilo= "background:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)";
+                this.auxiliar.dd1.estilo2= "color:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)";
+                this.auxiliar.dd2= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .35), .3);
+                this.auxiliar.dd2.estilo= "background:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)";
+                this.auxiliar.dd2.estilo2= "color:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)";
+                this.$.color.style.background = "hsl(" + this.auxiliar.ori.hue + "," + this.auxiliar.ori.saturation + "%, " + this.auxiliar.ori.light + "%)";
+               
+                }
+            propaga() { this.current = this.auxiliar; }
               _computeColorHSL( lhue, lsat, llig) {
 
                 return {
@@ -185,7 +199,6 @@ this.current.ld2.estilo2= "color:hsl(" + this.current.ld2.hue + "," + this.curre
             connectedCallback() {
                 super.connectedCallback();
                 this.setcolor();
-                this.icopen=false;
                
             }
             //static get observedAttributes() { return ["current"]; }

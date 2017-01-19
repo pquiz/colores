@@ -57,7 +57,7 @@ background: var(--paper-checkbox-checked-color);
                 <my-color id="pc1" current={{c1}}  tag="complementario"></my-color>
                 <my-color id="pc2" current={{c2}}  tag="Fondo"></my-color>
             </div>
-            <paper-button raised secondary>Fijar estilos</paper-button>
+            <paper-button raised secondary onclick="handleTap">Fijar estilos</paper-button>
         </section>
     </template>
     <script>
@@ -90,6 +90,9 @@ background: var(--paper-checkbox-checked-color);
                     }
                 }
             }
+            handleTap() {
+                this.$.pprimary.propaga();
+            }
             _setprimary() {
                    let aux = 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)';
               
@@ -105,12 +108,12 @@ background: var(--paper-checkbox-checked-color);
     '--paper-toggle-button-checked-button-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
         '--paper-toggle-button-checked-ink-color': 'hsl(' + this.primary.ori.hue + ' ,' + this.primary.ori.saturation + '%,' + this.primary.ori.light + '%)'
                 });
-                        this.secondary = this._computeColorHSL(this.primary.ori, 180, 0, 100);
+                      /*  this.secondary = this._computeColorHSL(this.primary.ori, 180, 0, 100);
                         this.set("secondary.ori", this.secondary.ori);
-                      //  this.$.psecondary.setcolor();
+                        this.$.psecondary.setcolor();
                                 this.c1 = this._computeColorHSL(this.primary.ori, 46, 0, 100);
                         this.set("c1.ori", this.c1.ori);
-                        //this.$.pc1.setcolor();
+                        this.$.pc1.setcolor();*/
                          
                         
                         
@@ -144,6 +147,7 @@ background: var(--paper-checkbox-checked-color);
             _setc2() {
                 //this.updateStyles({ '--my-dynamic-property': 'red' });
                 let aux = 'hsl(' + this.c2.ori.hue + ' ,' + this.c2.ori.saturation + '%,' + this.c2.ori.light + '%)';
+                console.info(aux);
                 this.updateStyles({
                     '--hero-bgcolor': aux
                 });             
