@@ -28,7 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 display: block;
                 height: 100%;
                 width: 100%;
-                padding: 3vh;
               
                 
             }
@@ -50,16 +49,13 @@ paper-card{
                 align-self: center;
                 vertical-align: middle;
             }
-          .collapse-content {
-    padding: 15px;
-    border: 1px solid #dedede;
-  }
+     
             .subcolor
             { display: flex;
                 align-self: center;
                 vertical-align: middle;
                 width: 25%;
-    height: 5vh;
+    height: 4vh;
             }
             .subcolores
             {
@@ -86,6 +82,7 @@ paper-card{
             <paper-slider id="saturatiom" pin value="{{lsaturation}}" max="100" editable on-change="_saturacionChanged"></paper-slider>
             <h5 style$="[[auxiliar.d1.estilo2]]">Lumocidad</h5>
             <paper-slider id="luz" pin value="{{llight}}" max="100" editable on-change="_luzChanged"></paper-slider>
+            <paper-toggle-button primary on-change="_toggleb"></paper-toggle-button>
             <paper-icon-button id="ibutton"
                 icon="hardware:keyboard-arrow-up"
                 title="Otros formatos"
@@ -93,8 +90,8 @@ paper-card{
                 style="float:right;">
               </paper-icon-button>
               <iron-collapse id="more_info" style="width:100%;">
-               <div class="collapse-content">
-        <div>  <h1>que pedo</h1></div>
+               <div >
+        <div>  que pedo</div>
       </div>
         
               </iron-collapse>
@@ -147,40 +144,53 @@ paper-card{
                   iconButton.icon = moreInfo.opened ? 'hardware:keyboard-arrow-up'
                                                     : 'hardware:keyboard-arrow-down';
                  this.$.more_info.toggle();
+            }
+                _toggleb()
+                {
+                    this.edit = !this.edit;
                 }
             setcolor() {
                 this.auxiliar = this._computeColorHSL(this.lhue, this.lsaturation, this.llight);
 
                 this.$.color.style.background = "hsl(" + this.auxiliar.ori.hue + "," + this.auxiliar.ori.saturation + "%, " + this.auxiliar.ori.light + "%)";
-                this.auxiliar.l1= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .30), .6);
-                this.auxiliar.l1.estilo= "background:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)";
-                this.auxiliar.l1.estilo2= "color:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)";
-                this.auxiliar.l2= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .65), .3);
-                this.auxiliar.l2.estilo= "background:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)";
-                this.auxiliar.l2.estilo2= "color:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)";
+                this.auxiliar.l1= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .30), .3);
+                this.set("auxiliar.l1.estilo","background:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)");
+                this.set("auxiliar.l1.estilo2", "color:hsl(" + this.auxiliar.l1.hue + "," + this.auxiliar.l1.saturation + "%, " + this.auxiliar.l1.light + "%)");
+                this.auxiliar.l2= this.luminateHSL(this.saturateHSL(this.auxiliar.ori, .65), .80);
+                this.set("auxiliar.l2.estilo", "background:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)");
+                this.set("auxiliar.l2.estilo2", "color:hsl(" + this.auxiliar.l2.hue + "," + this.auxiliar.l2.saturation + "%, " + this.auxiliar.l2.light + "%)");
 
-                this.auxiliar.ld1= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .60), .4);
-                this.auxiliar.ld1.estilo= "background:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)";
-                this.auxiliar.ld1.estilo2= "color:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)";
-                this.auxiliar.ld2= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .35), .85);
-                this.auxiliar.ld2.estilo= "background:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)";
-this.auxiliar.ld2.estilo2= "color:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)";
-                this.auxiliar.d1= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .30), .6);
-                this.auxiliar.d1.estilo= "background:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)";
-                this.auxiliar.d1.estilo2= "color:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)";
-                this.auxiliar.d2= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .65), .3);
-                this.auxiliar.d2.estilo= "background:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)";
-                this.auxiliar.d2.estilo2= "color:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)";
-                this.auxiliar.dd1= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .60), .6);
-                this.auxiliar.dd1.estilo= "background:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)";
-                this.auxiliar.dd1.estilo2= "color:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)";
-                this.auxiliar.dd2= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .35), .3);
-                this.auxiliar.dd2.estilo= "background:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)";
-                this.auxiliar.dd2.estilo2= "color:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)";
+                this.auxiliar.ld1= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .30), .3);
+                this.set("auxiliar.ld1.estilo","background:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)");
+                this.set("auxiliar.ld1.estilo2","color:hsl(" + this.auxiliar.ld1.hue + "," + this.auxiliar.ld1.saturation + "%, " + this.auxiliar.ld1.light + "%)");
+                this.auxiliar.ld2= this.luminateHSL(this.desaturateHSL(this.auxiliar.ori, .55), .8);
+                this.set("auxiliar.ld2.estilo","background:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)");
+this.set("auxiliar.ld2.estilo2", "color:hsl(" + this.auxiliar.ld2.hue + "," + this.auxiliar.ld2.saturation + "%, " + this.auxiliar.ld2.light + "%)");
+                this.auxiliar.d1= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .30), .25);
+        this.set("auxiliar.d1.estilo","background:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)");
+        this.set("auxiliar.d1.estilo2","color:hsl(" + this.auxiliar.d1.hue + "," + this.auxiliar.d1.saturation + "%, " + this.auxiliar.d1.light + "%)");
+                this.auxiliar.d2= this.darkenHSL(this.saturateHSL(this.auxiliar.ori, .65), .85);
+                this.set("auxiliar.d2.estilo","background:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)");
+                this.set("auxiliar.d2.estilo2=","color:hsl(" + this.auxiliar.d2.hue + "," + this.auxiliar.d2.saturation + "%, " + this.auxiliar.d2.light + "%)");
+                this.auxiliar.dd1= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .30), .3);
+                this.set("auxiliar.dd1.estilo","background:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)");
+                this.set("auxiliar.dd1.estilo2","color:hsl(" + this.auxiliar.dd1.hue + "," + this.auxiliar.dd1.saturation + "%, " + this.auxiliar.dd1.light + "%)");
+                this.auxiliar.dd2= this.darkenHSL(this.desaturateHSL(this.auxiliar.ori, .65), .80);
+                this.set("auxiliar.dd2.estilo", "background:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)");
+                this.set("auxiliar.dd2.estilo2","color:hsl(" + this.auxiliar.dd2.hue + "," + this.auxiliar.dd2.saturation + "%, " + this.auxiliar.dd2.light + "%)");
                 this.$.color.style.background = "hsl(" + this.auxiliar.ori.hue + "," + this.auxiliar.ori.saturation + "%, " + this.auxiliar.ori.light + "%)";
                
                 }
-            propaga() { this.current = this.auxiliar; }
+            propaga(auxpro) {
+                if (!(auxpro === null) && !(auxpro === undefined)) {
+                    this.set("lhue", auxpro)
+                }
+                this.setcolor();
+                this.current = this.auxiliar;
+            
+            this.set("current", this.current);
+            return this.auxiliar;
+            }
               _computeColorHSL( lhue, lsat, llig) {
 
                 return {
@@ -198,6 +208,7 @@ this.auxiliar.ld2.estilo2= "color:hsl(" + this.auxiliar.ld2.hue + "," + this.aux
             }
             connectedCallback() {
                 super.connectedCallback();
+                this.edit = false;
                 this.setcolor();
                
             }

@@ -30,9 +30,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-app">
     <template>
         <style include="shared-styles">
-            :host
-            {
+            :host {
                 display: block;
+                background: var(--primary-background-color);
             }
 
             .drawer-content
@@ -68,116 +68,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     }
 
 
-            :root
-            {
-                --host-container:
 
-            {
-                @apply(--layout-vertical);
-                width: 100%;
-                height: 100%;
+
+
+            html,
+            body {
+                margin: 0px;
+                padding: 0px;
+                min-height: 100%;
+                color: #242a42;
+                background: var(--primary-background-color);
+                font-family: 'Source Sans Pro', sans-serif;
+                font-weight: 400;
             }
-
-            ; --host-horizontal:
-            {
-                @apply(--layout-horizontal);
-                @apply(--layout-wrap);
-                width: 100%;
-                height: 100%;
-                padding: 10px;
-            }
-
-            ; --seccion--full:
-            {
-                width: 100%;
-                height: 90vh;
-                @apply(--layout-vertical);
-            }
-
-            ; --sectionfull-center:
-            {
-                @apply(--layout-self-center);
-            }
-
-            ; --onecolumn-container:
-            {
-                @apply(--layout-horizontal);
-                @apply(--layout-horizontal);
-                width: 70%;
-                height: 100%;
-            }
-
-            --app-secondary-color: #002de0; 
-            --app-primary-color: #ffcc00; 
-            --default-primary-color: #002de0;
-             --dark-primary-color: #242a42; 
-            --light-primary-color: #708dff; 
-            --text-primary-color:#ffffff;
-             --accent-color: #ffcc00;
-            --primary-background-color: #ffffff; 
-            --primary-text-color: #242a42;
-             --secondary-text-color: #665200;
-             --disabled-text-color: #313238;
-             --divider-color: #e0e0e0; 
-            --paper-checkbox-checked-color: #ffcc00;
-             --paper-checkbox-checked-ink-color: #002de0;
-             --paper-checkbox-unchecked-color: #665200; 
-            --paper-checkbox-unchecked-ink-color: #444444; 
-            --paper-checkbox-label-color: #242a42; 
-            --paper-fab-background: #002de0;
-             --paper-fab-disabled-background: #afb1b9;
-             --paper-fab-disabled-text: #313238;
-             --paper-icon-button-disabled-text: #afb1b9;
-             --paper-input-container-color: #919191;
-             --paper-input-container-focus-color: #002de0;
-             --paper-input-container-invalid-color: #ff6e40;
-             --paper-input-container-input-color: #919191; 
-            --paper-menu-background-color: #adbeff;
-             --paper-menu-color: #242a42; 
-            --paper-menu-disabled-color: #afb1b9;
-             --paper-progress-active-color: #ffcc00; 
-            --paper-progress-secondary-color: #002de0;
-             --paper-radio-button-checked-color: #ffcc00;
-             --paper-radio-button-checked-ink-color: #d6d8e3;
-             --paper-radio-button-unchecked-color: #665200;
-             --paper-radio-button-unchecked-ink-color: #444444; 
-            --paper-radio-button-label-color: #242a42;
-             --paper-slider-knob-color: #ffcc00;
-             --paper-slider-active-color: #ffcc00; 
-            --paper-slider-pin-color: #ffcc00;
-             --paper-spinner-layer-1-color: #ffcc00;
-             --paper-spinner-layer-2-color: #ffcc00;
-             --paper-spinner-layer-3-color: #ffcc00;
-             --paper-spinner-layer-4-color: #ffcc00;
-             --paper-tabs-selection-bar-color: #932528;
-             --paper-tab-ink: #932528; 
-            --app-tabs-selection-bar-color: #002de0;
-             --app-tab-ink: #002de0; 
-            --paper-toggle-button-checked-bar-color: #665200; 
-            --paper-toggle-button-checked-button-color: #ffcc00;
-             --paper-toggle-button-checked-ink-color: #ffcc00; 
-            --paper-toggle-button-unchecked-bar-color: #242a42;
-             --paper-toggle-button-unchecked-button-color: white;
-             --paper-toggle-button-unchecked-ink-color: white; 
-            --paper-toolbar-background: #e6bd1a; 
-            --paper-toolbar-color: #242a42;
-             --app-toolbar-background: #e6bd1a;
-             --app-toolbar-color:#242a42; 
-            --hero-bgcolor:#555555; 
-            background:var(--primary-background-color);
-            }
-
-
-             html,
-        body {
-            margin: 0px;
-            padding: 0px;
-            min-height: 100%;
-            color: #242a42;
-           background:var(--primary-background-color);
-            font-family: 'Source Sans Pro', sans-serif;
-            font-weight: 400;
-        }
         
         
 
@@ -273,7 +176,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 }
             }
             _appPrimaryChanged(appp, desc) {
-                let color = "hsl(" + this.appprimary.dd2.hue + "," + this.appprimary.dd2.saturation + "%, " + this.appprimary.dd2.light + "%)";
+                let color = "hsl(" + this.appprimary.l1.hue + "," + this.appprimary.l1.saturation + "%, " + this.appprimary.l1.light + "%)";
                 this.$.tabs.style.background = "hsl(" + this.appprimary.ori.hue + "," + this.appprimary.ori.saturation + "%, " + this.appprimary.ori.light + "%)";
                 this.$.toolbar.style.background = "hsl(" + this.appprimary.ori.hue + "," + this.appprimary.ori.saturation + "%, " + this.appprimary.ori.light + "%)";
                 this.$.toolbar.style.color = color;
@@ -293,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             _appC2Changed(appp, desc) {
 
-                let colorbg = "hsl(" + this.appc2.ori.hue + "," + this.appc2.ori.saturation + "%, " + this.appc2.ori.light + "%)";
+                let colorbg = "hsl(" + this.appc2.ld2.hue + "," + this.appc2.ld2.saturation + "%, " + this.appc2.ld2.light + "%)";
 
                 this.updateStyles({ '--primary-background-color': colorbg });
             

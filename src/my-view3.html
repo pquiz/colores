@@ -20,7 +20,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 @apply(--host-container);
             }
             .contraste{
-background: var(--paper-checkbox-checked-color);
     color: var(--accent-color);
     padding: 22px;
     font-size: xx-large;
@@ -44,20 +43,21 @@ background: var(--paper-checkbox-checked-color);
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                padding: 10px;
+                padding: 3px;
             }
         </style>
         <section>
-            <h1 class="contraste">Cambio de colores</h1>
+            <section hero>           <h1 class="contraste">Cambio de colores</h1></section>
+
             <h2>Color primario</h2>
             <p> Tono del color {{primary.ori.hue}} saturacion {{primary.ori.saturation}} luminocidad {{primary.ori.light}}</p>
             <div class="contenedor-colores">
-                <my-color id="pprimary" current={{primary}} class="shadow shadow-6dp" tag="primario"></my-color>
-                <my-color id="psecondary" current={{secondary}}  tag="secundario"></my-color>
-                <my-color id="pc1" current={{c1}}  tag="complementario"></my-color>
-                <my-color id="pc2" current={{c2}}  tag="Fondo"></my-color>
+                <my-color id="pprimary" current={{primary}} lhue="200" edit="off" lsaturation="100" llight="60" class="shadow shadow-6dp" tag="primario"></my-color>
+                <my-color id="psecondary" current={{secondary}} edit="off" lhue="20" lsaturation="100" llight="40" tag="secundario"></my-color>
+                <my-color id="pc1" current={{c1}} lhue="240" edit="off" lsaturation="100" llight="60" tag="complementario"></my-color>
+                <my-color id="pc2" current={{c2}} lhue="160" edit="off" lsaturation="100" llight="40" tag="Fondo"></my-color>
             </div>
-            <paper-button raised secondary onclick="handleTap">Fijar estilos</paper-button>
+            <paper-button raised secondary on-tap="handleTap">Fijar estilos</paper-button>
         </section>
     </template>
     <script>
@@ -91,11 +91,35 @@ background: var(--paper-checkbox-checked-color);
                 }
             }
             handleTap() {
-                this.$.pprimary.propaga();
+                this.primary = this.$.pprimary.propaga();
+                let llhue=0;
+                if (!this.$.psecondary.edit === true) {
+
+                     llhue = ((this.primary.ori.hue + 180) % 360 < 0) ? 360 + ((this.primary.ori.hue + 180) % 360) : (this.primary.ori.hue + 180) % 360;
+                    let secundario = this.$.psecondary;
+                    
+                } else { llhue = null;}
+                this.secondary = this.$.psecondary.propaga(llhue);
+                if (!this.$.pc1.edit === true) {
+
+                    llhue = ((this.primary.ori.hue + 45) % 360 < 0) ? 360 + ((this.primary.ori.hue + 45) % 360) : (this.primary.ori.hue + 45) % 360;
+                 
+
+                } else { llhue = null; }
+                this.c1 = this.$.pc1.propaga(llhue);
+
+                if (!this.$.pc1.edit === true) {
+
+                    llhue = ((this.primary.ori.hue + 30) % 360 < 0) ? 360 + ((this.primary.ori.hue + 30) % 360) : (this.primary.ori.hue + 30) % 360;
+
+
+                }
+                this.c2 = this.$.pc2.propaga();
+                
             }
             _setprimary() {
                    let aux = 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)';
-              
+                   document.querySelector('my-app').appprimary = this.primary;
               //this.notifyPath("secondary");  
                 this.updateStyles({ '--paper-checkbox-checked-color': aux });
                         this.updateStyles({     '--paper-progress-active-color': 'hsl('+this.primary.ori.hue+' ,'+ this.primary.ori.saturation +'%,'+  this.primary.ori.light +'%)',
@@ -121,7 +145,7 @@ background: var(--paper-checkbox-checked-color);
             _setsecundary(nsec) {
                       //this.updateStyles({ '--my-dynamic-property': 'red' });
  let aux = 'hsl(' + this.secondary.ori.hue + ' ,' + this.secondary.ori.saturation + '%,' + this.secondary.ori.light + '%)';
-         
+        document.querySelector('my-app').appsecondary = this.secondary;
 
                  this.updateStyles({
                     '--default-primary-color': aux});
@@ -137,21 +161,22 @@ background: var(--paper-checkbox-checked-color);
                 
             }
             _setc1() {
-                let aux = 'hsl(' + this.c1.ori.hue + ' ,' + this.c1.ori.saturation + '%,' + this.c1.ori.light + '%)';
-
+                let aux = 'hsl(' + this.c1.l1.hue + ' ,' + this.c1.l1.saturation + '%,' + this.c1.l1.light + '%)';
                 this.updateStyles({
-                    '--primary-background-color': aux
+                    '--hero-bgcolor': aux
                 });
+                 document.querySelector('my-app').appc1 = this.c1;
 
             }
             _setc2() {
                 //this.updateStyles({ '--my-dynamic-property': 'red' });
-                let aux = 'hsl(' + this.c2.ori.hue + ' ,' + this.c2.ori.saturation + '%,' + this.c2.ori.light + '%)';
+                let aux = 'hsl(' + this.c2.l2.hue + ' ,' + this.c2.l2.saturation + '%,' + this.c2.l2.light + '%)';
                 console.info(aux);
                 this.updateStyles({
-                    '--hero-bgcolor': aux
-                });             
+                    '--primary-background-color': aux
+                });
 
+                document.querySelector('my-app').appc2 = this.c2;
             }
             _computeColorHSL(inicio, lhue, lsat, llig) {
 
